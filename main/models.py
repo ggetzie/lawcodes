@@ -10,7 +10,6 @@ class CodeLegalText(models.Model):
         verbose_name = "Code or Legal Text"
 
     def __str__(self):
-        # pylint: disable=invalid-str-returned
         return self.long_name
 
 
@@ -26,8 +25,15 @@ class Editor(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
-        # pylint: disable=invalid-str-returned
         return self.name
+
+
+class Transcription(models.Model):
+    manuscript = models.ForeignKey(Manuscript, on_delete=models.CASCADE)
+    editor = models.ForeignKey(Editor, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
 
 
 class Translation(models.Model):
@@ -36,5 +42,4 @@ class Translation(models.Model):
     translator = models.ForeignKey(Editor, on_delete=models.CASCADE)
 
     def __str__(self):
-        # pylint: disable=invalid-str-returned
         return self.title
